@@ -1,6 +1,6 @@
 import React from "react";
-import "./style.css";
 import { FindUsHere } from "../FindUsHere/FindUsHere";
+import "./style.css";
 
 export const Footer = () => {
   return (

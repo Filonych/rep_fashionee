@@ -56,7 +56,7 @@ export const Filter = ({ setSelectedItems, setCurrentPage, sortValue }) => {
   useEffect(() => {    
       setCurrentPage(1);
       const products = filterProducts(debouncedValue, filter, sortValue);
-      setSelectedItems(products);
+      setSelectedItems(products);      
   }, [debouncedValue]);
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useEffect, useContext } from "react";
-import { AppContext } from "../../context";
 import data from "../../products.json";
+import { AppContext } from "../../context";
 import { Sorting } from "../../components/Shop/Sorting/Sorting";
 import { ReviewedItems } from "../../components/Shop/ReviewedItems/ReviewedItems";
 import { Card } from "../../components/Shop/Card/Card";
