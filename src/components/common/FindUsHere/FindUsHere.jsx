@@ -1,6 +1,6 @@
 import "./style.css";
 
-const FindUsHere = () => (
+export const FindUsHere = () => (
   <div>
     <p className="content_first_social_title">Find us here:</p>
     <ul className="social_list">
@@ -11,5 +11,3 @@ const FindUsHere = () => (
     </ul>
   </div>
 );
-
-export default FindUsHere;

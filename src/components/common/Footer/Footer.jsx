@@ -1,6 +1,6 @@
 import React from "react";
 import "./style.css";
-import FindUsHere from "../FindUsHere/FindUsHere";
+import { FindUsHere } from "../FindUsHere/FindUsHere";
 
 function Footer() {
   return (
