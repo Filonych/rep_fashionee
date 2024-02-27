@@ -1,15 +1,14 @@
 import "./style.css";
-
 import { useState, useEffect } from "react";
 
 const ITEMS_PER_PAGE = 12;
 
-function Pagination({
+export const Pagination = ({
   setSlicedItems,
   currentPage,
   selectedItems,
   setCurrentPage,
-}) {
+}) => {
   const [pagination, setPagination] = useState([]);
 
   const firstIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -47,5 +46,3 @@ function Pagination({
     </div>
   );
 }
-
-export default Pagination;

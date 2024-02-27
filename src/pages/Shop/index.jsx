@@ -3,14 +3,14 @@ import { useEffect, useContext } from "react";
 import { AppContext } from "../../context";
 import data from "../../products.json";
 
-import Sorting from "../../components/Shop/Sorting/Sorting";
-import ReviewedItems from "../../components/Shop/ReviewedItems/ReviewedItems";
-import Card from "../../components/Shop/Card/Card";
-import Pagination from "../../components/Shop/Pagination/Pagination";
-import Filter from "../../components/Shop/Filter/Filter";
-import FirstScreen from "../../components/common/FirstScreen/FirstScreen";
+import { Sorting } from "../../components/Shop/Sorting/Sorting";
+import { ReviewedItems } from "../../components/Shop/ReviewedItems/ReviewedItems";
+import { Card } from "../../components/Shop/Card/Card";
+import { Pagination } from "../../components/Shop/Pagination/Pagination";
+import { Filter } from "../../components/Shop/Filter/Filter";
+import { FirstScreen } from "../../components/common/FirstScreen/FirstScreen";
 
-function Shop({ slicedItems, setSlicedItems }) {
+export const Shop = ({ slicedItems, setSlicedItems }) => {
   const { cartItems, setCartItems, wishlistItems, setWishlistItems } =
     useContext(AppContext);
 
@@ -134,4 +134,3 @@ function Shop({ slicedItems, setSlicedItems }) {
   );
 }
 
-export default Shop;

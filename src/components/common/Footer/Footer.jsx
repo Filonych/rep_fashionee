@@ -2,7 +2,7 @@ import React from "react";
 import "./style.css";
 import { FindUsHere } from "../FindUsHere/FindUsHere";
 
-function Footer() {
+export const Footer = () => {
   return (
     <footer>
       <div className="border"></div>
@@ -105,5 +105,3 @@ function Footer() {
     </footer>
   );
 }
-
-export default Footer;

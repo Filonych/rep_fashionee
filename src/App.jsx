@@ -1,13 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import "./App.css";
-import Footer from "./components/common/Footer/Footer";
-import Header from "./components/common/Header/Header";
-import Shop from "./pages/Shop/index.jsx";
-import Cart from "./pages/Cart/index.jsx";
+import { Footer } from "./components/common/Footer/Footer";
+import { Header } from "./components/common/Header/Header";
+import { Shop } from "./pages/Shop/index.jsx";
+import { Cart } from "./pages/Cart/index.jsx";
 import { AppContext } from "./context";
 
-function App() {
+export const App = () => {
   const [activePage, setActivePage] = useState("Shop");
   const [cartItems, setCartItems] = useState([]);
   const [wishlistItems, setWishlistItems] = useState([]);
@@ -49,5 +49,3 @@ function App() {
     </AppContext.Provider>
   );
 }
-
-export default App;

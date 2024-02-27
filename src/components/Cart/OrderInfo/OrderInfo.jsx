@@ -3,7 +3,7 @@ import "./style.css";
 
 const COST_OF_DELIVERY = 15;
 
-function OrderInfo({ cartItems, promoState }) {
+export const OrderInfo = ({ cartItems, promoState }) => {
   const price = useMemo(() => {
     return parseFloat(
       cartItems.reduce(
@@ -61,4 +61,3 @@ function OrderInfo({ cartItems, promoState }) {
   );
 }
 
-export default OrderInfo;

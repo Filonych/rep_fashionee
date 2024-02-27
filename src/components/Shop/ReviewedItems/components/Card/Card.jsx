@@ -1,6 +1,6 @@
 import "./style.css";
 
-function Card({ item }) {
+export const Card = ({ item }) => {
   const { id, name, price, oldPrice, image } = item;
 
   return (
@@ -27,5 +27,3 @@ function Card({ item }) {
     </div>
   );
 }
-
-export default Card;

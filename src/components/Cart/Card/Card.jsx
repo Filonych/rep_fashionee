@@ -1,6 +1,6 @@
 import "./style.css";
 
-function Card({ cartItems, setCartItems, item }) {
+export const Card = ({ cartItems, setCartItems, item }) => {
   const { id, name, price, oldPrice, image, quantity } = item;
 
   const onMinus = (id) => {
@@ -69,5 +69,3 @@ function Card({ cartItems, setCartItems, item }) {
     </div>
   );
 }
-
-export default Card;

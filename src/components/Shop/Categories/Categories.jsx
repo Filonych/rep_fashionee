@@ -1,4 +1,4 @@
-function Categories({ filter, setFilter, filteredCategories }) {
+export const Categories = ({ filter, setFilter, filteredCategories }) => {
   return (
     <div className="sidebar_categories">
       <h4 className="sidebar_section_title">Categories</h4>
@@ -31,4 +31,3 @@ function Categories({ filter, setFilter, filteredCategories }) {
   );
 }
 
-export default Categories;

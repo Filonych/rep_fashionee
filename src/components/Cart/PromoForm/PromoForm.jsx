@@ -2,7 +2,7 @@ import "./style.css";
 
 const PROMOTION_CODE = "ilovereact";
 
-function PromoForm({ promoCode, setPromoState, setPromoCode }) {
+export const PromoForm = ({ promoCode, setPromoState, setPromoCode }) => {
   const onChangePromo = (e) => {
     setPromoCode(e.target.value);
   };
@@ -37,5 +37,3 @@ function PromoForm({ promoCode, setPromoState, setPromoCode }) {
     </div>
   );
 }
-
-export default PromoForm;

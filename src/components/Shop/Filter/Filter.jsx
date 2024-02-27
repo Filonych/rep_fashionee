@@ -1,10 +1,10 @@
-import Categories from "../../../components/Shop/Categories/Categories";
-import filterProducts from "../../../helpers/filterProducts";
+import { Categories } from "../../../components/Shop/Categories/Categories";
+import { filterProducts } from "../../../helpers/filterProducts";
 import data from "../../../products.json";
 import { useState, useMemo, useEffect } from "react";
 import "./style.css";
 
-function Filter({ setSelectedItems, setCurrentPage, sortValue }) {
+export const Filter = ({ setSelectedItems, setCurrentPage, sortValue }) => {
   const [searchValue, setSearchValue] = useState("");
   const [debouncedValue, setDebouncedValue] = useState("");
 
@@ -146,5 +146,3 @@ function Filter({ setSelectedItems, setCurrentPage, sortValue }) {
     </>
   );
 }
-
-export default Filter;

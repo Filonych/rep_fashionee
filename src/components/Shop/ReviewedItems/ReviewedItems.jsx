@@ -1,9 +1,9 @@
 import "./style.css";
 import { useState, useEffect } from "react";
 import data from "../../../products.json";
-import Card from "./components/Card/Card";
+import { Card } from "./components/Card/Card";
 
-function ReviewedItems() {
+export const ReviewedItems = () => {
   const [reviewedItems, setReviewedItems] = useState([]);
 
   useEffect(() => {
@@ -31,5 +31,3 @@ function ReviewedItems() {
     </div>
   );
 }
-
-export default ReviewedItems;

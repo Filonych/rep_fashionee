@@ -1,6 +1,6 @@
 import "./style.css";
 
-function FirstScreen({ name }) {
+export const FirstScreen = ({ name }) => {
   return (
     <div className="fs-wrap">
       <div className="title_wrap">
@@ -14,5 +14,3 @@ function FirstScreen({ name }) {
     </div>
   );
 }
-
-export default FirstScreen;

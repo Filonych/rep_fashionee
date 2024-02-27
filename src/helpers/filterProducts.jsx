@@ -1,6 +1,6 @@
 import data from "../products.json";
 
-function filterProducts(debouncedValue, filter, sortValue) {
+export const filterProducts = (debouncedValue, filter, sortValue) => {
   let products = [...data.products];
 
   if (debouncedValue) {
@@ -59,5 +59,3 @@ function filterProducts(debouncedValue, filter, sortValue) {
 
   return products;
 }
-
-export default filterProducts;

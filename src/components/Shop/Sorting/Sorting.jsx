@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-function Sorting({ selectedItems, setSelectedItems, sortValue, setSortValue }) {
+export const Sorting = ({ selectedItems, setSelectedItems, sortValue, setSortValue }) => {
   const handleSorting = (event) => {
     setSortValue(event.target.value);
   };
@@ -39,5 +39,3 @@ function Sorting({ selectedItems, setSelectedItems, sortValue, setSortValue }) {
     </div>
   );
 }
-
-export default Sorting;

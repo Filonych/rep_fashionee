@@ -1,6 +1,6 @@
 import "./style.css";
 
-function Card({ item, addToWishlist, addToCart, cartItems, wishlistItems }) {
+export const Card = ({ item, addToWishlist, addToCart, cartItems, wishlistItems }) => {
   const { id, name, price, oldPrice, image } = item;
 
   return (
@@ -41,5 +41,3 @@ function Card({ item, addToWishlist, addToCart, cartItems, wishlistItems }) {
     </div>
   );
 }
-
-export default Card;

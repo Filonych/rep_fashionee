@@ -1,7 +1,7 @@
 import React from "react";
 import "./style.css";
 
-function Header ({ setActivePage, cartCounter, wishlistCounter }) {
+export const Header = ({ setActivePage, cartCounter, wishlistCounter }) => {
   return (
     <header className="header">
     <div className="nav_left">
@@ -72,5 +72,3 @@ function Header ({ setActivePage, cartCounter, wishlistCounter }) {
   )
 
 };
-
-export default Header;
