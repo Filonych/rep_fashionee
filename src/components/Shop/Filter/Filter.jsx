@@ -1,7 +1,7 @@
+import { useState, useMemo, useEffect } from "react";
+import data from "../../../products.json";
 import { Categories } from "../../../components/Shop/Categories/Categories";
 import { filterProducts } from "../../../helpers/filterProducts";
-import data from "../../../products.json";
-import { useState, useMemo, useEffect } from "react";
 import "./style.css";
 
 export const Filter = ({ setSelectedItems, setCurrentPage, sortValue }) => {
@@ -88,14 +88,14 @@ export const Filter = ({ setSelectedItems, setCurrentPage, sortValue }) => {
           className="min_price"
           placeholder="Min"
           onChange={(event) =>
-            setFilter({ ...filter, minPrice: event.target.value || 0 })
+            setFilter({ ...filter, minPrice: event.target.value})
           }
         />
         <input
           className="max_price"
           placeholder="Max"
           onChange={(event) =>
-            setFilter({ ...filter, maxPrice: event.target.value || Infinity })
+            setFilter({ ...filter, maxPrice: event.target.value})
           }
         />
       </div>
