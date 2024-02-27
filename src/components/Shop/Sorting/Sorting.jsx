@@ -17,7 +17,17 @@ export const Sorting = ({
       );
     } else if (selectedSortValue === "byName") {
       setSelectedItems((prevItems) =>
-        [...prevItems].sort((a, b) => a.name.localeCompare(b.name))
+        [...prevItems].sort(function (a, b) {
+          const x = a.name.toLowerCase();
+          const y = b.name.toLowerCase();
+          if (x < y) {
+            return -1;
+          }
+          if (x > y) {
+            return 1;
+          }
+          return 0;
+        })
       );
     }
   };
