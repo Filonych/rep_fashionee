@@ -1,0 +1,35 @@
+.fs-wrap {
+  margin: 0 120px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 100px;
+}
+
+.title_wrap {
+  max-width: 730px;
+  width: 100%;
+  padding-left: 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+}
+
+.fs-title {
+  font-family: Josefin Sans;
+  font-size: 80px;
+  font-weight: 400;
+}
+
+.subtitle {
+  list-style-type: none;
+  display: flex;
+  gap: 12px;
+  padding: 0;
+}
+
+.img {
+  width: 800px;
+  height: 400px;
+  background-color: #f1f2f3;
+}

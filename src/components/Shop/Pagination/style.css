@@ -1,0 +1,24 @@
+.pagination {
+  display: flex;
+  gap: 21px;
+  align-self: center;
+}
+
+.page {
+  color: #9c9c9c;
+  width: 9px;
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
+  border-bottom: 3px solid #9c9c9c;
+}
+
+.currentPage {
+  font-size: 16px;
+  font-weight: 600;
+  width: 22px;
+  height: 23px;
+  border-bottom: 3px solid black;
+  text-align: center;
+  cursor: pointer;
+}
