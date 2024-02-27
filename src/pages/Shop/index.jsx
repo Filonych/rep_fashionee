@@ -89,9 +89,7 @@ export const Shop = ({ slicedItems, setSlicedItems }) => {
               There are {numberOfProducts} products in this category
             </div>
             <Sorting
-              sortValue={sortValue}
               setSortValue={setSortValue}
-              selectedItems={selectedItems}
               setSelectedItems={setSelectedItems}
               setCurrentPage={setCurrentPage}
             />

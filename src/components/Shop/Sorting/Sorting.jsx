@@ -1,35 +1,26 @@
 import { useEffect } from "react";
 
-export const Sorting = ({ selectedItems, setSelectedItems, sortValue, setSortValue, setCurrentPage }) => {
+export const Sorting = ({
+  setSelectedItems,
+  setSortValue,
+  setCurrentPage,
+}) => {
   const handleSorting = (event) => {
-    setSortValue(event.target.value);
-  };
+    const selectedSortValue = event.target.value;
+    setSortValue(selectedSortValue);
 
-  useEffect(() => {
-    setCurrentPage(1)
-    if (sortValue === "byPrice") {
-      const sortedItems = [...selectedItems].sort(function (a, b) {
-        return a.price - b.price;
-      });
-      setSelectedItems(sortedItems);
-    } 
-    
-    if (sortValue === "byName") {
-      const sortedItems = [...selectedItems].sort(function (a, b) {
-        const x = a.name.toLowerCase();
-        const y = b.name.toLowerCase();
-        if (x < y) {
-          return -1;
-        }
-        if (x > y) {
-          return 1;
-        }
-        return 0;
-      });
-      setSelectedItems(sortedItems);
+    setCurrentPage(1);
+
+    if (selectedSortValue === "byPrice") {
+      setSelectedItems((prevItems) =>
+        [...prevItems].sort((a, b) => a.price - b.price)
+      );
+    } else if (selectedSortValue === "byName") {
+      setSelectedItems((prevItems) =>
+        [...prevItems].sort((a, b) => a.name.localeCompare(b.name))
+      );
     }
-    
-  }, [sortValue, setSelectedItems]);
+  };
 
   return (
     <div className="sort_by_list_wrap">
@@ -39,4 +30,4 @@ export const Sorting = ({ selectedItems, setSelectedItems, sortValue, setSortVal
       </select>
     </div>
   );
-}
+};
