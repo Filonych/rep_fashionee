@@ -1,11 +1,11 @@
 import data from "../products.json";
 
-function filterProducts(searchValue, filter, sortValue) {
+function filterProducts(debouncedValue, filter, sortValue) {
   let products = [...data.products];
 
-  if (searchValue) {
+  if (debouncedValue) {
     products = products.filter((item) =>
-      item.name.toLowerCase().includes(searchValue.toLowerCase())
+      item.name.toLowerCase().includes(debouncedValue.toLowerCase())
     );
   }
 

@@ -6,6 +6,7 @@ import "./style.css";
 
 function Filter({ setSelectedItems, setCurrentPage, sortValue }) {
   const [searchValue, setSearchValue] = useState("");
+  const [debouncedValue, setDebouncedValue] = useState("");
 
   const [filter, setFilter] = useState({
     category: "All",
@@ -32,7 +33,7 @@ function Filter({ setSelectedItems, setCurrentPage, sortValue }) {
   const applyFilter = () => {
     setCurrentPage(1);
 
-    const products = filterProducts(searchValue, filter, sortValue);
+    const products = filterProducts(debouncedValue, filter, sortValue);
     setSelectedItems(products);
   };
 
@@ -52,15 +53,18 @@ function Filter({ setSelectedItems, setCurrentPage, sortValue }) {
     setSearchValue(event.target.value);
   };
 
-  useEffect(() => {
-    const timerId = setTimeout(() => {
+  useEffect(() => {    
       setCurrentPage(1);
-      const products = filterProducts(searchValue, filter, sortValue);
+      const products = filterProducts(debouncedValue, filter, sortValue);
       setSelectedItems(products);
-    }, 500);
+  }, [debouncedValue]);
 
-    return () => clearTimeout(timerId);
-  }, [searchValue, setCurrentPage, setSelectedItems, sortValue]);
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setDebouncedValue(searchValue);
+    }, 500);
+    return () => clearTimeout(timeoutId);
+  }, [searchValue]);
 
   return (
     <>
@@ -69,7 +73,7 @@ function Filter({ setSelectedItems, setCurrentPage, sortValue }) {
           onChange={handleInputChange}
           className="sidebar_search_input"
           placeholder="Search"
-        ></input>
+        />
         <img src="img/search.svg" alt="" />
       </div>
       <Categories
