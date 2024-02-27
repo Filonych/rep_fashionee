@@ -19,11 +19,23 @@ function filterProducts(searchValue, filter, sortValue) {
     products = products.filter((item) => filter.colors.includes(item.color));
   }
 
-  if (filter.minPrice || filter.maxPrice) {
+  if (filter.minPrice && filter.maxPrice) {
     products = products.filter(
       (item) => item.price >= filter.minPrice && item.price <= filter.maxPrice
     );
   }
+    
+  if (filter.minPrice) {
+    products = products.filter(
+      (item) => item.price >= filter.minPrice
+    );
+  }
+    
+  if (filter.maxPrice) {
+    products = products.filter(
+    (item) => item.price <= filter.maxPrice
+  );
+  }     
 
   if (sortValue === "byPrice") {
     products = [...products].sort(function (a, b) {
