@@ -93,6 +93,7 @@ export const Shop = ({ slicedItems, setSlicedItems }) => {
               setSortValue={setSortValue}
               selectedItems={selectedItems}
               setSelectedItems={setSelectedItems}
+              setCurrentPage={setCurrentPage}
             />
           </div>
           <div className="products_wrap">

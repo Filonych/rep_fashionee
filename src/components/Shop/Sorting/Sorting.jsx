@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 
-export const Sorting = ({ selectedItems, setSelectedItems, sortValue, setSortValue }) => {
+export const Sorting = ({ selectedItems, setSelectedItems, sortValue, setSortValue, setCurrentPage }) => {
   const handleSorting = (event) => {
     setSortValue(event.target.value);
   };
 
   useEffect(() => {
+    setCurrentPage(1)
     if (sortValue === "byPrice") {
       const sortedItems = [...selectedItems].sort(function (a, b) {
         return a.price - b.price;
