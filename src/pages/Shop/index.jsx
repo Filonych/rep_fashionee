@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useEffect, useContext } from "react";
 import { AppContext } from "../../context";
 import data from "../../products.json";
-
 import { Sorting } from "../../components/Shop/Sorting/Sorting";
 import { ReviewedItems } from "../../components/Shop/ReviewedItems/ReviewedItems";
 import { Card } from "../../components/Shop/Card/Card";
@@ -98,7 +97,6 @@ export const Shop = ({ slicedItems, setSlicedItems }) => {
             {slicedItems.map((item) => (
               <Card
                 item={item}
-                key={item.id}
                 addToWishlist={addToWishlist}
                 addToCart={addToCart}
                 wishlistItems={wishlistItems}
@@ -131,5 +129,4 @@ export const Shop = ({ slicedItems, setSlicedItems }) => {
       </div>
     </div>
   );
-}
-
+};
