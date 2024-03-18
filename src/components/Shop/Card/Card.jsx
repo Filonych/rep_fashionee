@@ -1,13 +1,18 @@
 import "./style.css";
 
-export const Card = ({ item, addToWishlist, addToCart, cartItems, wishlistItems }) => {
+export const Card = ({
+  item,
+  addToWishlist,
+  addToCart,
+  cartItems,
+  wishlistItems,
+}) => {
   const { id, name, price, oldPrice, image } = item;
 
   return (
-    <div key={"wrap" + id} className="product_item_wrap">
-      <img key={id} src={image} alt={name} className="product_item_img" />
+    <div className="product_item_wrap">
+      <img src={image} alt={name} className="product_item_img" />
       <p
-        key={"name" + id}
         className={`product_item_title ${
           cartItems.some((cartItem) => cartItem.id === id) ? "active" : ""
         }`}
@@ -16,15 +21,10 @@ export const Card = ({ item, addToWishlist, addToCart, cartItems, wishlistItems 
         {name}
       </p>
       <div className="product_price_wrap">
-        <p key={"price" + id} className="product_price">
-          {price}
-        </p>
-        <p key={"oldPrice" + id} className="product_old_price">
-          {oldPrice}
-        </p>
+        <p className="product_price">{price}</p>
+        <p className="product_old_price">{oldPrice}</p>
       </div>
       <svg
-        key={"wishlist" + id}
         className={`wishlist_icon ${
           wishlistItems.some((wishlistItem) => wishlistItem.id === id)
             ? "active"
@@ -40,4 +40,4 @@ export const Card = ({ item, addToWishlist, addToCart, cartItems, wishlistItems 
       </svg>
     </div>
   );
-}
+};

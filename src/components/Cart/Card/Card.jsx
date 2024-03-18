@@ -35,17 +35,13 @@ export const Card = ({ cartItems, setCartItems, item }) => {
   };
 
   return (
-    <div key={"wrap" + id} className="item_wrap">
-      <img key={id} src={image} alt={name} className="item_img" />
+    <div className="item_wrap">
+      <img src={image} alt={name} className="item_img" />
       <div className="item_info_wrap">
         <p className="item_title">{name}</p>
         <div className="item_number">
-          <p className="item_oldPrice" key={"oldPrice" + id}>
-            {oldPrice}
-          </p>
-          <p className="item_newPrice" key={"price" + id}>
-            {price}
-          </p>
+          <p className="item_oldPrice">{oldPrice}</p>
+          <p className="item_newPrice">{price}</p>
           <div className="item_quantity_wrap">
             <div className="item_signs" onClick={() => onMinus(id)}>
               -
@@ -68,4 +64,4 @@ export const Card = ({ cartItems, setCartItems, item }) => {
       />
     </div>
   );
-}
+};

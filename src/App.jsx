@@ -48,4 +48,4 @@ export const App = () => {
       </div>
     </AppContext.Provider>
   );
-}
+};

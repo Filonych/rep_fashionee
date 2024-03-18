@@ -96,6 +96,7 @@ export const Shop = ({ slicedItems, setSlicedItems }) => {
           <div className="products_wrap">
             {slicedItems.map((item) => (
               <Card
+                key={item.id}
                 item={item}
                 addToWishlist={addToWishlist}
                 addToCart={addToCart}
