@@ -1,34 +1,20 @@
-import { useState, useMemo, useEffect } from "react";
-import data from "../../../products.json";
+import { useState, useEffect } from "react";
 import { Categories } from "../../../components/Shop/Categories/Categories";
 import { filterProducts } from "../../../helpers/filterProducts";
+import { parseData } from "../../../helpers/parseData";
 import "./style.css";
 
 export const Filter = ({ setSelectedItems, setCurrentPage, sortValue }) => {
   const [searchValue, setSearchValue] = useState("");
   const [debouncedValue, setDebouncedValue] = useState("");
+  const { filteredCategories, colors, prices } = parseData();
 
   const [filter, setFilter] = useState({
     category: "All",
-    minPrice: null,
-    maxPrice: null,
+    minPrice: prices.minPrice,
+    maxPrice: prices.maxPrice,
     colors: [],
   });
-
-  const initialFilter = useMemo(() => {
-    const filteredCategories = data.products
-      .flatMap((item) => item.categories)
-      .filter((item, id, array) => array.indexOf(item) === id);
-
-    const colors = data.products
-      .map((item) => item.color)
-      .filter((item, id, array) => array.indexOf(item) === id);
-
-    return {
-      filteredCategories,
-      colors,
-    };
-  }, []);
 
   const applyFilter = () => {
     setCurrentPage(1);
@@ -53,10 +39,10 @@ export const Filter = ({ setSelectedItems, setCurrentPage, sortValue }) => {
     setSearchValue(event.target.value);
   };
 
-  useEffect(() => {    
-      setCurrentPage(1);
-      const products = filterProducts(debouncedValue, filter, sortValue);
-      setSelectedItems(products);      
+  useEffect(() => {
+    setCurrentPage(1);
+    const products = filterProducts(debouncedValue, filter, sortValue);
+    setSelectedItems(products);
   }, [debouncedValue]);
 
   useEffect(() => {
@@ -79,7 +65,7 @@ export const Filter = ({ setSelectedItems, setCurrentPage, sortValue }) => {
       <Categories
         filter={filter}
         setFilter={setFilter}
-        filteredCategories={initialFilter.filteredCategories}
+        filteredCategories={filteredCategories}
       />
 
       <div className="sidebar_price">
@@ -88,21 +74,21 @@ export const Filter = ({ setSelectedItems, setCurrentPage, sortValue }) => {
           className="min_price"
           placeholder="Min"
           onChange={(event) =>
-            setFilter({ ...filter, minPrice: event.target.value})
+            setFilter({ ...filter, minPrice: event.target.value })
           }
         />
         <input
           className="max_price"
           placeholder="Max"
           onChange={(event) =>
-            setFilter({ ...filter, maxPrice: event.target.value})
+            setFilter({ ...filter, maxPrice: event.target.value })
           }
         />
       </div>
       <div className="sidebar_colors">
         <h4 className="sidebar_section_title">Colors</h4>
         <div className="sidebar_colors_wrap">
-          {initialFilter.colors.map((item) => (
+          {colors.map((item) => (
             <label key={item} className="container">
               {item}
               <input
@@ -145,4 +131,4 @@ export const Filter = ({ setSelectedItems, setCurrentPage, sortValue }) => {
       </div>
     </>
   );
-}
+};
