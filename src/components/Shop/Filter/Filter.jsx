@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Categories } from "../../../components/Shop/Categories/Categories";
 import { filterProducts } from "../../../helpers/filterProducts";
 import { parseData } from "../../../helpers/parseData";
 import "./style.css";
+import { useCallback } from "react";
 
 export const Filter = ({ setSelectedItems, setCurrentPage, sortValue }) => {
   const [searchValue, setSearchValue] = useState("");
-  const [debouncedValue, setDebouncedValue] = useState("");
   const { filteredCategories, colors, prices } = parseData();
 
   const [filter, setFilter] = useState({
@@ -19,7 +19,7 @@ export const Filter = ({ setSelectedItems, setCurrentPage, sortValue }) => {
   const applyFilter = () => {
     setCurrentPage(1);
 
-    const products = filterProducts(debouncedValue, filter, sortValue);
+    const products = filterProducts(searchValue, filter, sortValue);
     setSelectedItems(products);
   };
 
@@ -36,21 +36,33 @@ export const Filter = ({ setSelectedItems, setCurrentPage, sortValue }) => {
   };
 
   const handleInputChange = (event) => {
-    setSearchValue(event.target.value);
+    const newValue = event.target.value;
+    setSearchValue(newValue);
+    debouncedFilterProducts(newValue);
   };
 
-  useEffect(() => {
+  const updateProducts = (newValue) => {
     setCurrentPage(1);
-    const products = filterProducts(debouncedValue, filter, sortValue);
+    const products = filterProducts(newValue, filter, sortValue);
     setSelectedItems(products);
-  }, [debouncedValue]);
+    console.log(newValue);
+  };
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setDebouncedValue(searchValue);
-    }, 500);
-    return () => clearTimeout(timeoutId);
-  }, [searchValue]);
+  const debounce = (func, delay) => {
+    let timeout;
+    return function (...args) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func(...args), delay);
+    };
+  };
+
+  // без useCallback не работает debounce
+  // я пробовала выносить debounce в отдельный файл, но не работает как надо
+
+  const debouncedFilterProducts = useCallback(
+    debounce((newValue) => updateProducts(newValue), 500),
+    []
+  );
 
   return (
     <>
