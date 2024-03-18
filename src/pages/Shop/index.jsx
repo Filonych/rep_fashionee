@@ -8,6 +8,8 @@ import { Card } from "../../components/Shop/Card/Card";
 import { Pagination } from "../../components/Shop/Pagination/Pagination";
 import { Filter } from "../../components/Shop/Filter/Filter";
 import { FirstScreen } from "../../components/common/FirstScreen/FirstScreen";
+import { Subscribe } from "../../components/Shop/Subscribe";
+import { TotalProducts } from "../../components/Shop/TotalProducts";
 
 export const Shop = ({ slicedItems, setSlicedItems }) => {
   const { cartItems, setCartItems, wishlistItems, setWishlistItems } =
@@ -84,9 +86,7 @@ export const Shop = ({ slicedItems, setSlicedItems }) => {
 
         <div className="main_section_center">
           <div className="main_section_center_first-line">
-            <div className="products_in_the_category">
-              There are {numberOfProducts} products in this category
-            </div>
+            <TotalProducts numberOfProducts={numberOfProducts} />
             <Sorting
               setSortValue={setSortValue}
               setSelectedItems={setSelectedItems}
@@ -113,21 +113,7 @@ export const Shop = ({ slicedItems, setSlicedItems }) => {
           />
         </div>
       </div>
-      <div className="subscribe_section">
-        <div className="subscribe_section_form">
-          <h3 className="subscribe_section_title">Newsletter</h3>
-          <p className="subscribe_section_subtitle">
-            Be the first to hear about deals, offers and upcoming collections.
-          </p>
-          <div className="subscribe_section_input_wrap">
-            <input
-              className="subscribe_section_input"
-              placeholder="Enter your email"
-            ></input>
-            <button className="subscribe_section_button">Subscribe</button>
-          </div>
-        </div>
-      </div>
+      <Subscribe />
     </div>
   );
 };
