@@ -1,33 +1,14 @@
 export const Sorting = ({
-  setSelectedItems,
   setSortValue,
-  setCurrentPage,
+  searchValue,
+  filter,
+  updateProducts,
 }) => {
   const handleSorting = (event) => {
     const selectedSortValue = event.target.value;
     setSortValue(selectedSortValue);
 
-    setCurrentPage(1);
-
-    if (selectedSortValue === "byPrice") {
-      setSelectedItems((prevItems) =>
-        [...prevItems].sort((a, b) => a.price - b.price)
-      );
-    } else if (selectedSortValue === "byName") {
-      setSelectedItems((prevItems) =>
-        [...prevItems].sort(function (a, b) {
-          const x = a.name.toLowerCase();
-          const y = b.name.toLowerCase();
-          if (x < y) {
-            return -1;
-          }
-          if (x > y) {
-            return 1;
-          }
-          return 0;
-        })
-      );
-    }
+    updateProducts(searchValue, filter, selectedSortValue);
   };
 
   return (

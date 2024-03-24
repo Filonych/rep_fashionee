@@ -1,27 +1,29 @@
+import { filterProducts } from "../../../helpers/filterProducts";
 import "./style.css";
 import { useState, useEffect } from "react";
 
-const ITEMS_PER_PAGE = 12;
-
 export const Pagination = ({
-  setSlicedItems,
   currentPage,
-  selectedItems,
   setCurrentPage,
+  totalPages,
+  searchValue,
+  filter,
+  sortValue,
+  setProductsInfo,
 }) => {
   const [pagination, setPagination] = useState([]);
 
-  const firstIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const lastIndex = firstIndex + ITEMS_PER_PAGE;
-  const totalPages = Math.ceil(selectedItems.length / ITEMS_PER_PAGE);
-
-  useEffect(() => {
-    const newSlicedItems = selectedItems.slice(firstIndex, lastIndex);
-    setSlicedItems(newSlicedItems);
-  }, [firstIndex, lastIndex, currentPage, selectedItems, setSlicedItems]);
-
   const changeCurrentPage = (page) => {
     setCurrentPage(page);
+
+    const updatedProductsInfo = filterProducts(
+      searchValue,
+      filter,
+      sortValue,
+      page
+    );
+
+    setProductsInfo(updatedProductsInfo);
   };
 
   useEffect(() => {
@@ -45,4 +47,4 @@ export const Pagination = ({
       ))}
     </div>
   );
-}
+};

@@ -1,11 +1,13 @@
 import data from "../products.json";
 
-export const filterProducts = (debouncedValue, filter, sortValue) => {
+const ITEMS_PER_PAGE = 12;
+
+export const filterProducts = (searchValue, filter, sortValue, currentPage) => {
   let products = [...data.products];
 
-  if (debouncedValue) {
+  if (searchValue) {
     products = products.filter((item) =>
-      item.name.toLowerCase().includes(debouncedValue.toLowerCase())
+      item.name.toLowerCase().includes(searchValue.toLowerCase())
     );
   }
 
@@ -45,5 +47,12 @@ export const filterProducts = (debouncedValue, filter, sortValue) => {
     });
   }
 
-  return products;
+  const productsTotal = products;
+  const firstIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const lastIndex = firstIndex + ITEMS_PER_PAGE;
+  const totalPages = Math.ceil(products.length / ITEMS_PER_PAGE);
+
+  products = products.slice(firstIndex, lastIndex);
+
+  return { products, productsTotal, totalPages };
 };

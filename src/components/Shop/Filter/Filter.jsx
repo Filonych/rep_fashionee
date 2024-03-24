@@ -1,29 +1,24 @@
-import { useState, useCallback } from "react";
-import { filterProducts } from "../../../helpers/filterProducts";
-import { parseData } from "../../../helpers/parseData";
 import { Categories } from "./components/Categories";
 import { Price } from "./components/Price";
 import { Colors } from "./components/Colors";
 import { Button } from "./components/Button";
 import { Search } from "./components/Search";
+import { useDebounce } from "../../../hooks/useDebounce";
+import { parseData } from "../../../helpers/parseData";
 import "./style.css";
 
-export const Filter = ({ setSelectedItems, setCurrentPage, sortValue }) => {
-  const [searchValue, setSearchValue] = useState("");
-  const { filteredCategories, colors, prices } = parseData();
-
-  const [filter, setFilter] = useState({
-    category: "All",
-    minPrice: prices.minPrice,
-    maxPrice: prices.maxPrice,
-    colors: [],
-  });
+export const Filter = ({
+  sortValue,
+  filter,
+  setFilter,
+  searchValue,
+  setSearchValue,
+  updateProducts,
+}) => {
+  const { filteredCategories, colors } = parseData();
 
   const applyFilter = () => {
-    setCurrentPage(1);
-
-    const products = filterProducts(searchValue, filter, sortValue);
-    setSelectedItems(products);
+    updateProducts(searchValue, filter, sortValue);
   };
 
   const onToggleColor = (color) => {
@@ -41,34 +36,14 @@ export const Filter = ({ setSelectedItems, setCurrentPage, sortValue }) => {
   const handleInputChange = (event) => {
     const newValue = event.target.value;
     setSearchValue(newValue);
-    debouncedFilterProducts(newValue);
+    updateProducts(newValue, filter, sortValue);
   };
 
-  const updateProducts = (newValue) => {
-    setCurrentPage(1);
-    const products = filterProducts(newValue, filter, sortValue);
-    setSelectedItems(products);
-  };
-
-  const debounce = (func, delay) => {
-    let timeout;
-    return function (...args) {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func(...args), delay);
-    };
-  };
-
-  // без useCallback не работает debounce
-  // я пробовала выносить debounce в отдельный файл, но не работает как надо
-
-  const debouncedFilterProducts = useCallback(
-    debounce((newValue) => updateProducts(newValue), 500),
-    []
-  );
+  const debouncedInputChange = useDebounce(handleInputChange, 500);
 
   return (
     <>
-      <Search handleInputChange={handleInputChange} />
+      <Search handleInputChange={debouncedInputChange} />
       <Categories
         filter={filter}
         setFilter={setFilter}

@@ -6,15 +6,17 @@ import { Shop } from "./pages/Shop/index.jsx";
 import { Cart } from "./pages/Cart/index.jsx";
 import { AppContext } from "./context";
 import "./App.css";
+import { FirstScreen } from "./components/common/FirstScreen/FirstScreen.jsx";
 
 export const App = () => {
   const [activePage, setActivePage] = useState("Shop");
-  const [cartItems, setCartItems] = useState([]);
-  const [wishlistItems, setWishlistItems] = useState([]);
-  const [slicedItems, setSlicedItems] = useState([]);
 
-  const cartCounter = cartItems.length;
-  const wishlistCounter = wishlistItems.length;
+  const [cartItems, setCartItems] = useState(
+    JSON.parse(localStorage.getItem("cart")) || []
+  );
+  const [wishlistItems, setWishlistItems] = useState(
+    JSON.parse(localStorage.getItem("wishlist")) || []
+  );
 
   const changeActivePage = (page) => {
     if (page !== "Cart" && page !== "Shop") {
@@ -33,15 +35,10 @@ export const App = () => {
       }}
     >
       <div className="App">
-        <Header
-          setActivePage={changeActivePage}
-          cartCounter={cartCounter}
-          wishlistCounter={wishlistCounter}
-        />
+        <Header setActivePage={changeActivePage} />
+        <FirstScreen name={activePage} />
 
-        {activePage === "Shop" && (
-          <Shop slicedItems={slicedItems} setSlicedItems={setSlicedItems} />
-        )}
+        {activePage === "Shop" && <Shop />}
         {activePage === "Cart" && <Cart />}
 
         <Footer />

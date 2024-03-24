@@ -1,25 +1,55 @@
 import { useState } from "react";
-import { useEffect, useContext } from "react";
-import data from "../../products.json";
+import { useContext } from "react";
 import { AppContext } from "../../context";
 import { Sorting } from "../../components/Shop/Sorting/Sorting";
 import { ReviewedItems } from "../../components/Shop/ReviewedItems/ReviewedItems";
 import { Card } from "../../components/Shop/Card/Card";
 import { Pagination } from "../../components/Shop/Pagination/Pagination";
 import { Filter } from "../../components/Shop/Filter/Filter";
-import { FirstScreen } from "../../components/common/FirstScreen/FirstScreen";
 import { Subscribe } from "../../components/Shop/Subscribe";
 import { TotalProducts } from "../../components/Shop/TotalProducts";
+import { filterProducts } from "../../helpers/filterProducts";
+import { parseData } from "../../helpers/parseData";
 
-export const Shop = ({ slicedItems, setSlicedItems }) => {
+export const Shop = () => {
   const { cartItems, setCartItems, wishlistItems, setWishlistItems } =
     useContext(AppContext);
+  const { prices } = parseData();
 
-  const [selectedItems, setSelectedItems] = useState(data.products);
+  const [searchValue, setSearchValue] = useState("");
+  const [filter, setFilter] = useState({
+    category: "All",
+    minPrice: prices.minPrice,
+    maxPrice: prices.maxPrice,
+    colors: [],
+  });
   const [currentPage, setCurrentPage] = useState(1);
   const [sortValue, setSortValue] = useState("");
 
-  const numberOfProducts = selectedItems.length;
+  const { products, productsTotal, totalPages } = filterProducts(
+    searchValue,
+    filter,
+    sortValue,
+    currentPage
+  );
+  const [productsInfo, setProductsInfo] = useState({
+    products,
+    productsTotal,
+    totalPages,
+  });
+
+  const updateProducts = (newValue, filter, sortValue) => {
+    setCurrentPage(1);
+    const currentPage = 1;
+
+    const updatedProductsInfo = filterProducts(
+      newValue,
+      filter,
+      sortValue,
+      currentPage
+    );
+    setProductsInfo(updatedProductsInfo);
+  };
 
   const addToCart = (item) => {
     const itemExists = cartItems.some((cartItem) => cartItem.id === item.id);
@@ -57,24 +87,17 @@ export const Shop = ({ slicedItems, setSlicedItems }) => {
     setWishlistItems(updatedWishlist);
   };
 
-  useEffect(() => {
-    const savedCartItems = JSON.parse(localStorage.getItem("cart"));
-    setCartItems(savedCartItems || []);
-
-    const savedWishlistItems = JSON.parse(localStorage.getItem("wishlist"));
-    setWishlistItems(savedWishlistItems || []);
-  }, [setCartItems, setWishlistItems]);
-
   return (
     <div>
-      <FirstScreen name="Shop" />
       <div className="main_section">
         <div className="sidebar_wrap">
           <Filter
-            setSelectedItems={setSelectedItems}
-            setCurrentPage={setCurrentPage}
-            selectedItems={selectedItems}
             sortValue={sortValue}
+            filter={filter}
+            setFilter={setFilter}
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+            updateProducts={updateProducts}
           />
           <ReviewedItems />
           <div className="sidebar_sale_banner">
@@ -86,15 +109,18 @@ export const Shop = ({ slicedItems, setSlicedItems }) => {
 
         <div className="main_section_center">
           <div className="main_section_center_first-line">
-            <TotalProducts numberOfProducts={numberOfProducts} />
+            <TotalProducts
+              numberOfProducts={productsInfo.productsTotal.length}
+            />
             <Sorting
               setSortValue={setSortValue}
-              setSelectedItems={setSelectedItems}
-              setCurrentPage={setCurrentPage}
+              searchValue={searchValue}
+              filter={filter}
+              updateProducts={updateProducts}
             />
           </div>
           <div className="products_wrap">
-            {slicedItems.map((item) => (
+            {productsInfo.products.map((item) => (
               <Card
                 key={item.id}
                 item={item}
@@ -106,10 +132,14 @@ export const Shop = ({ slicedItems, setSlicedItems }) => {
             ))}
           </div>
           <Pagination
-            selectedItems={selectedItems}
-            setSlicedItems={setSlicedItems}
+            products={productsInfo.products}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
+            totalPages={productsInfo.totalPages}
+            sortValue={sortValue}
+            filter={filter}
+            searchValue={searchValue}
+            setProductsInfo={setProductsInfo}
           />
         </div>
       </div>
