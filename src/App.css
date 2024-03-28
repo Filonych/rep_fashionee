@@ -29,25 +29,6 @@ body {
   gap: 50px;
 }
 
-.sidebar_sale_banner {
-  width: 242px;
-  height: 400px;
-  background-color: black;
-  color: white;
-  font-size: 60px;
-  font-weight: 800;
-  text-transform: uppercase;
-  text-align: center;
-  padding-top: 80px;
-}
-
-.sidebar_sale_banner > span {
-  font-size: 24px;
-  font-weight: 600;
-  letter-spacing: 9.84px;
-  text-transform: uppercase;
-}
-
 .main_section_center {
   max-width: 846px;
   width: 100%;
@@ -87,8 +68,9 @@ body {
   cursor: pointer;
 }
 
-.product_item_title.active {
-  color: #ff8e8e;
+.wrap_second_line {
+  display: flex;
+  justify-content: space-between;
 }
 
 .product_price_wrap {
@@ -110,15 +92,23 @@ body {
   text-decoration: line-through;
 }
 
+.buy_button {
+  max-width: 60px;
+  width: 100%;
+}
+
+.remove_button {
+  max-width: 60px;
+  width: 100%;
+  color: red;
+  border: 1px solid red;
+}
+
 .wishlist_icon {
   position: absolute;
   top: 17px;
   right: 20px;
   cursor: pointer;
-}
-
-.wishlist_icon.active {
-  fill: #ff0000;
 }
 
 .subscribe_section {

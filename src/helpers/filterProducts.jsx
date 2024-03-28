@@ -2,15 +2,13 @@ import data from "../products.json";
 
 const ITEMS_PER_PAGE = 12;
 
-export const filterProducts = (searchValue, filter, sortValue, currentPage) => {
-  let products = [...data.products];
+const searchByInput = (products, searchValue) => {
+  return products.filter((item) =>
+    item.name.toLowerCase().includes(searchValue.toLowerCase())
+  );
+};
 
-  if (searchValue) {
-    products = products.filter((item) =>
-      item.name.toLowerCase().includes(searchValue.toLowerCase())
-    );
-  }
-
+const filterItems = (products, filter) => {
   if (filter.category !== "All") {
     products = products.filter((item) =>
       item.categories.includes(filter.category)
@@ -26,15 +24,19 @@ export const filterProducts = (searchValue, filter, sortValue, currentPage) => {
       (item) => item.price >= filter.minPrice && item.price <= filter.maxPrice
     );
   }
+  return products;
+};
 
+const sortItems = (products, sortValue) => {
   if (sortValue === "byPrice") {
-    products = [...products].sort(function (a, b) {
+    products.sort(function (a, b) {
       return a.price - b.price;
     });
+    return products;
   }
 
   if (sortValue === "byName") {
-    products = [...products].sort(function (a, b) {
+    products.sort(function (a, b) {
       const x = a.name.toLowerCase();
       const y = b.name.toLowerCase();
       if (x < y) {
@@ -45,14 +47,39 @@ export const filterProducts = (searchValue, filter, sortValue, currentPage) => {
       }
       return 0;
     });
+    return products;
   }
+};
 
-  const productsTotal = products;
+const paginateItems = (products, currentPage) => {
+  const productsTotal = products.length;
   const firstIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const lastIndex = firstIndex + ITEMS_PER_PAGE;
   const totalPages = Math.ceil(products.length / ITEMS_PER_PAGE);
 
   products = products.slice(firstIndex, lastIndex);
 
-  return { products, productsTotal, totalPages };
+  return { products: products, productsTotal, totalPages };
+};
+
+export const filterProducts = (searchValue, filter, sortValue, currentPage) => {
+  let products = [...data.products];
+
+  if (searchValue) {
+    products = searchByInput(products, searchValue);
+  }
+
+  if (
+    filter.category !== "All" ||
+    filter.colors.length > 0 ||
+    filter.minPrice ||
+    filter.maxPrice
+  ) {
+    products = filterItems(products, filter);
+  }
+
+  if (sortValue === "byPrice" || sortValue === "byName")
+    products = sortItems(products, sortValue);
+
+  return paginateItems(products, currentPage);
 };

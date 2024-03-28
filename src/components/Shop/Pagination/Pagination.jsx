@@ -1,17 +1,20 @@
+import { ShopContext } from "../../../context";
 import { filterProducts } from "../../../helpers/filterProducts";
 import "./style.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
-export const Pagination = ({
-  currentPage,
-  setCurrentPage,
-  totalPages,
-  searchValue,
-  filter,
-  sortValue,
-  setProductsInfo,
-}) => {
-  const [pagination, setPagination] = useState([]);
+export const Pagination = () => {
+  const {
+    searchValue,
+    filter,
+    currentPage,
+    setCurrentPage,
+    sortValue,
+    setProductsInfo,
+    productsInfo,
+  } = useContext(ShopContext);
+
+  const [pagination, setPagination] = useState(null);
 
   const changeCurrentPage = (page) => {
     setCurrentPage(page);
@@ -28,23 +31,24 @@ export const Pagination = ({
 
   useEffect(() => {
     const tempPagination = [];
-    for (let i = 0; i < totalPages; i++) {
+    for (let i = 0; i < productsInfo.totalPages; i++) {
       tempPagination.push(i + 1);
     }
     setPagination(tempPagination);
-  }, [totalPages]);
+  }, [productsInfo.totalPages]);
 
   return (
     <div className="pagination">
-      {pagination.map((page) => (
-        <div
-          key={page}
-          onClick={() => changeCurrentPage(page)}
-          className={currentPage === page ? "currentPage" : "page"}
-        >
-          {page}
-        </div>
-      ))}
+      {pagination &&
+        pagination.map((page) => (
+          <div
+            key={page}
+            onClick={() => changeCurrentPage(page)}
+            className={currentPage === page ? "currentPage" : "page"}
+          >
+            {page}
+          </div>
+        ))}
     </div>
   );
 };

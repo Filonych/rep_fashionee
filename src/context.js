@@ -1,5 +1,6 @@
-import { createContext } from 'react';
+import { createContext } from "react";
 
 const AppContext = createContext({});
+const ShopContext = createContext({});
 
-export { AppContext };
+export { AppContext, ShopContext };
