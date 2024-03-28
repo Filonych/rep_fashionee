@@ -15,11 +15,18 @@ const filterItems = (products, filter) => {
     );
   }
 
-  if (filter.colors.length > 0) {
+  if (
+    filter.colors &&
+    Array.isArray(filter.colors) &&
+    filter.colors.length > 0
+  ) {
     products = products.filter((item) => filter.colors.includes(item.color));
   }
 
-  if (filter.minPrice || filter.maxPrice) {
+  if (
+    (filter.minPrice && typeof filter.minPrice === "number") ||
+    (filter.maxPrice && typeof filter.maxPrice === "number")
+  ) {
     products = products.filter(
       (item) => item.price >= filter.minPrice && item.price <= filter.maxPrice
     );
@@ -53,8 +60,10 @@ const sortItems = (products, sortValue) => {
 
 const paginateItems = (products, currentPage) => {
   const productsTotal = products.length;
+
   const firstIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const lastIndex = firstIndex + ITEMS_PER_PAGE;
+
   const totalPages = Math.ceil(products.length / ITEMS_PER_PAGE);
 
   products = products.slice(firstIndex, lastIndex);
@@ -65,16 +74,15 @@ const paginateItems = (products, currentPage) => {
 export const filterProducts = (searchValue, filter, sortValue, currentPage) => {
   let products = [...data.products];
 
-  if (searchValue) {
+  if (
+    searchValue &&
+    typeof searchValue === "string" &&
+    searchValue.trim() !== ""
+  ) {
     products = searchByInput(products, searchValue);
   }
 
-  if (
-    filter.category !== "All" ||
-    filter.colors.length > 0 ||
-    filter.minPrice ||
-    filter.maxPrice
-  ) {
+  if (filter && typeof filter === "object") {
     products = filterItems(products, filter);
   }
 

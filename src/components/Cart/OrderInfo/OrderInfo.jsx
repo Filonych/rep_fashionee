@@ -1,9 +1,12 @@
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
 import "./style.css";
+import { AppContext } from "../../../context";
 
 const COST_OF_DELIVERY = 15;
 
-export const OrderInfo = ({ cartItems, promoState }) => {
+export const OrderInfo = ({ promoState }) => {
+  const { cartItems } = useContext(AppContext);
+
   const price = useMemo(() => {
     return parseFloat(
       cartItems.reduce(
@@ -59,5 +62,4 @@ export const OrderInfo = ({ cartItems, promoState }) => {
       </button>
     </div>
   );
-}
-
+};

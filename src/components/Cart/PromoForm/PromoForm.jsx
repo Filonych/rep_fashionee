@@ -1,8 +1,11 @@
+import { useState } from "react";
 import "./style.css";
 
 const PROMOTION_CODE = "ilovereact";
 
-export const PromoForm = ({ promoCode, setPromoState, setPromoCode }) => {
+export const PromoForm = ({ setPromoState }) => {
+  const [promoCode, setPromoCode] = useState(null);
+
   const onChangePromo = (e) => {
     setPromoCode(e.target.value);
   };
@@ -36,4 +39,4 @@ export const PromoForm = ({ promoCode, setPromoState, setPromoCode }) => {
       </form>
     </div>
   );
-}
+};

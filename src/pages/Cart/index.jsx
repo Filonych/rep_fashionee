@@ -7,8 +7,7 @@ import { Card } from "../../components/Cart/Card/Card";
 import "./cart.css";
 
 export const Cart = () => {
-  const { cartItems, setCartItems } = useContext(AppContext);
-  const [promoCode, setPromoCode] = useState("");
+  const { cartItems } = useContext(AppContext);
   const [promoState, setPromoState] = useState(false);
 
   return (
@@ -17,23 +16,14 @@ export const Cart = () => {
         <div className="center_wrap">
           <div className="items_wrap">
             {cartItems.map((item) => (
-              <Card
-                key={item.id}
-                item={item}
-                cartItems={cartItems}
-                setCartItems={setCartItems}
-              />
+              <Card key={item.id} item={item} />
             ))}
           </div>
-          <OrderInfo cartItems={cartItems} promoState={promoState} />
+          <OrderInfo promoState={promoState} />
         </div>
-        <PromoForm
-          promoCode={promoCode}
-          setPromoCode={setPromoCode}
-          setPromoState={setPromoState}
-        />
+        <PromoForm setPromoState={setPromoState} />
         <FindUsHere />
       </div>
     </div>
   );
-}
+};

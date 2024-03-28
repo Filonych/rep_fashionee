@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import "./style.css";
+import { AppContext } from "../../../context";
 
-export const Card = ({ cartItems, setCartItems, item }) => {
+export const Card = ({ item }) => {
+  const { cartItems, setCartItems } = useContext(AppContext);
+
   const { id, name, price, oldPrice, image, quantity } = item;
 
   const onMinus = (id) => {
